@@ -1,0 +1,1 @@
+<h2>I simple CLI tool to discover and write new model.json and model.js files by using loopback's datasource.discoverSchema API</h2>
