@@ -14,7 +14,8 @@ var options = cli.parse({
     owner: [false, 'Name of owner/schema/database for the models.', 'string'],
     relations: [false, 'Include relations.', 'boolean',  'false'],
     allOwners: [false, 'Include All Owners.', 'boolean',  'false'],
-    views: [false, 'Include views.', 'boolean',  'false']
+    views: [false, 'Include views.', 'boolean',  'false'],
+    skip: [false, 'Comma seperate model names to skip when discovering new models.', 'string']
 });
 
 cli.main(function (args, options) {
@@ -33,7 +34,8 @@ cli.main(function (args, options) {
         server = require(serverPath);
         dataSource = server.dataSources[options.dataSource];
     } catch(e) {
-        cli.fatal('Unable to require() server.js from', serverPath);
+        cli.error(e);
+        cli.fatal('Unable to require() server.js from ' + serverPath);
     }
 
     if (!dataSource) {
@@ -42,15 +44,21 @@ cli.main(function (args, options) {
 
     if (options.allNewModels !== 'false') {
         var currentModels = fs.readdirSync(modelsPath)
-            .filter(function(fname){
-                return fname.match(/.*.json/g)
-            })
-            .map(function(fname){
-                return fs.readFileSync(modelsPath + '/' + fname);
-            })
-            .map(function(contents){
-                return JSON.parse(contents).name;
-            });
+                .filter(function(fname){
+                    return fname.match(/.*.json/g)
+                })
+                .map(function(fname){
+                    return fs.readFileSync(modelsPath + '/' + fname);
+                })
+                .map(function(contents){
+                    return JSON.parse(contents).name.toLowerCase();
+                }),
+            skips = options.skip.split(',')
+                .map(function(name){
+                    return name.trim().toLowerCase();
+                });
+
+
 
         dataSource.discoverModelDefinitions(discoveryOptions, function(err, models){
             if (err) {
@@ -69,9 +77,16 @@ cli.main(function (args, options) {
                         cli.fatal(err);
                     }
 
-                    if (currentModels.indexOf(schema.name) === -1) {
-                        cli.info('Writing new model files for ' + schema.name);
-                        writeFilesForModelSchema(schema);
+                    // doesn't already exist and not skipping
+                    if (currentModels.indexOf(schema.name.toLowerCase()) === -1) {
+                        if (skips.indexOf(schema.name.toLowerCase()) === -1) {
+                            cli.ok('Writing new model files for ' + schema.name);
+                            writeFilesForModelSchema(schema);
+                        } else {
+                            cli.info(schema.name + ' skipped.');
+                        }
+                    } else {
+                        cli.info(schema.name + ' already exists.');
                     }
 
                     callCnt--;
