@@ -8,9 +8,9 @@
     "type": "git",
     "url": "https://github.com/slively/loopback-discover-schemas.git"
   },
-  "main": "./index.js",
+  "main": "./cli.js",
   "bin": {
-    "loopback-db-migrate": "./index.js"
+    "loopback-db-migrate": "./cli.js"
   },
   "bugs": {
     "url": "https://github.com/slively/loopback-discover-schemas/issues"
