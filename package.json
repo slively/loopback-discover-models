@@ -10,7 +10,7 @@
   },
   "main": "./cli.js",
   "bin": {
-    "loopback-db-migrate": "./cli.js"
+    "loopback-discover-schemas": "./cli.js"
   },
   "bugs": {
     "url": "https://github.com/slively/loopback-discover-schemas/issues"
