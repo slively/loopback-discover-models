@@ -115,7 +115,7 @@ cli.main(function (args, options) {
     }
 
     function defaultJsFileContents(modelName) {
-        return 'module.exports = function('+modelName+'){};'
+        return 'module.exports = function(/*'+modelName+'*/){};'
     }
 
     function updateModelConfig(schema) {
