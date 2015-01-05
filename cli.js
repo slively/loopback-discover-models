@@ -15,7 +15,7 @@ var options = cli.parse({
     relations: [false, 'Include relations.', 'boolean',  'false'],
     allOwners: [false, 'Include All Owners.', 'boolean',  'false'],
     views: [false, 'Include views.', 'boolean',  'false'],
-    skip: [false, 'Comma seperate model names to skip when discovering new models.', 'string']
+    skip: [false, 'Comma seperate model names to skip when discovering new models.', 'string', '']
 });
 
 cli.main(function (args, options) {
