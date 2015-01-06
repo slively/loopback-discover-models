@@ -64,8 +64,7 @@ cli.main(function (args, options) {
             if (err) {
                 cli.fatal(err);
             } else if (!models || models.length === 0) {
-                cli.info('No models found in data source with options.');
-                cli.info(discoveryOptions);
+                cli.info('No models found in data source with options:',JSON.stringify(discoveryOptions));
                 process.exit();
             }
 
