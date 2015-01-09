@@ -1,21 +1,21 @@
 {
-  "name": "loopback-discover-schemas",
+  "name": "loopback-discover-models",
   "version": "0.0.1",
   "author": {
     "name": "Scott Lively"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/slively/loopback-discover-schemas.git"
+    "url": "https://github.com/slively/loopback-discover-models.git"
   },
   "main": "./cli.js",
   "bin": {
-    "loopback-discover-schemas": "./cli.js"
+    "loopback-discover-models": "./cli.js"
   },
   "bugs": {
-    "url": "https://github.com/slively/loopback-discover-schemas/issues"
+    "url": "https://github.com/slively/loopback-discover-models/issues"
   },
-  "homepage": "https://github.com/slively/loopback-discover-schemas",
+  "homepage": "https://github.com/slively/loopback-discover-models",
   "dependencies": {
     "cli": "^0.6.5",
     "cli-prompt": "^0.4.1"
