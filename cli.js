@@ -1,24 +1,47 @@
 #!/usr/bin/env node
 var cli = require('cli'),
-    fs = require('fs');
+    prompt = require('cli-prompt'),
+    fs = require('fs'),
+    flags = {
+        prompt: [false, 'Use prompts instead of arguments', 'boolean', false],
+        serverPath: [false, 'Path to server.js (relative to CWD)', 'path', '/server/server.js'],
+        modelConfigPath: [false, 'Path to model-config.json (relative to CWD)', 'path', '/server/model-config.json'],
+        modelDir: [false, 'Path to models folder (relative to CWD)', 'path', '/server/models'],
+        dataSource: [false, 'Name of the data source from data sources.json (required)', 'string', 'db'],
+        allNewModels: [false, 'Discover and create all models not in modelDir', 'boolean', 'false' ],
+        modelName:  [false, 'Name of a single model/table/collection to create (if not all models)', 'string' ],
+        owner: [false, 'Name of owner/schema/database for the models', 'string'],
+        relations: [false, 'Include relations', 'boolean',  'false'],
+        allOwners: [false, 'Include All Owners', 'boolean',  'false'],
+        views: [false, 'Include views', 'boolean',  'false'],
+        skip: [false, 'Comma separate model names to skip when discovering new models', 'string', '']
+    };
 
 cli.width = 120;
+cli.parse(flags);
 
-var options = cli.parse({
-    serverPath: [false, 'Path to server.js (relative to CWD).', 'path', '/server/server.js'],
-    modelConfigPath: [false, 'Path to model-config.json (relative to CWD).', 'path', '/server/model-config.json'],
-    modelDir: [false, 'Path to models folder (relative to CWD).', 'path', '/common/models'],
-    dataSource: [false, 'Name of the data source from data sources.json (required).', 'string', 'db'],
-    allNewModels: [false, 'Discover and create all models not in modelDir.', 'boolean', 'false' ],
-    modelName:  [false, 'Name of a single model/table/collection to create.', 'string' ],
-    owner: [false, 'Name of owner/schema/database for the models.', 'string'],
-    relations: [false, 'Include relations.', 'boolean',  'false'],
-    allOwners: [false, 'Include All Owners.', 'boolean',  'false'],
-    views: [false, 'Include views.', 'boolean',  'false'],
-    skip: [false, 'Comma seperate model names to skip when discovering new models.', 'string', '']
+cli.main(function checkPrompt(args, options) {
+    if (options.prompt) {
+        // map cli flags into cli-prompt options
+        prompt.multi(Object.keys(flags)
+            .filter(function(key){
+                return key !== 'prompt';
+            })
+            .map(function(key) {
+                var flag = flags[key];
+                return {
+                    key: key,
+                    label: flag[1],
+                    type: flag[2],
+                    default: flag[3]
+                }
+            }), main);
+        return;
+    }
+    main(options);
 });
 
-cli.main(function (args, options) {
+function main(options) {
     var serverPath = process.cwd() + options.serverPath,
         modelConfigPath = process.cwd() + options.modelConfigPath,
         modelsPath = process.cwd() + options.modelDir,
@@ -134,4 +157,4 @@ cli.main(function (args, options) {
         fs.writeFileSync(filePath + '.js', defaultJsFileContents(schema.name));
         updateModelConfig(schema);
     }
-});
+}

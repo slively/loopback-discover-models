@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/slively/loopback-discover-schemas",
   "dependencies": {
-    "cli": "^0.6.5"
+    "cli": "^0.6.5",
+    "cli-prompt": "^0.4.1"
   }
 }
