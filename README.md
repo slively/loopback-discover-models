@@ -37,9 +37,14 @@ Options:
 ./node_modules/.bin/loopback-discover-schemas --allNewModels --modelDir /server/models
 ```
 
-<h5>Generate new models for database 'my_database' instead of default for database connector.</h5>
+<h5>Use prompts instead of cli flags (good for use with npm run).</h5>
 ```
-./node_modules/.bin/loopback-discover-schemas --allNewModels --owner my_database
+./node_modules/.bin/loopback-discover-schemas --prompt
+```
+
+<h5>Generate Model for a specific table/collectiom (modelName should be the table/collection name).</h5>
+```
+./node_modules/.bin/loopback-discover-schemas --modelName some_table
 ```
 
 <h5>Generate Model for a specific table/collectiom (modelName should be the table/collection name).</h5>
