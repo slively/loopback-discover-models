@@ -76,8 +76,7 @@ function main(options) {
                 .map(function(contents){
                     return JSON.parse(contents).name.toLowerCase();
                 }),
-            skips = options.skip.split(',')
-                .map(function(name){
+            skips = (options.skip || '').split(',').map(function(name){
                     return name.trim().toLowerCase();
                 });
 
