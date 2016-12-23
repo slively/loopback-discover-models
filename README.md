@@ -3,9 +3,9 @@
 
 <h3>Usage</h3>
 ```
-./node_modules/.bin/loopback-discover-schemas -h                                                      
+./node_modules/.bin/loopback-discover-models -h                                                      
 Usage:
-  loopback-discover-schemas [OPTIONS] [ARGS]
+  loopback-discover-models [OPTIONS] [ARGS]
 
 Options: 
       --serverPath [PATH]Path to server.js (relative to CWD). (Default is /server/server.js)
@@ -24,30 +24,30 @@ Options:
   
 <h5>Generate Models for all tables in the database that don't already exist as models.</h5>
 ```
-./node_modules/.bin/loopback-discover-schemas --allNewModels
+./node_modules/.bin/loopback-discover-models --allNewModels
 ```
 
 <h5>generate new models, but skip the tables 'migrations' and 'some_other_table'</h5>
 ```
-./node_modules/.bin/loopback-discover-schemas --allNewModels --skip migrations,some_other_table
+./node_modules/.bin/loopback-discover-models --allNewModels --skip migrations,some_other_table
 ```
 
 <h5>Generate new models and put them in a different folder</h5>
 ```
-./node_modules/.bin/loopback-discover-schemas --allNewModels --modelDir /server/models
+./node_modules/.bin/loopback-discover-models --allNewModels --modelDir /server/models
 ```
 
 <h5>Use prompts instead of cli flags (good for use with npm run).</h5>
 ```
-./node_modules/.bin/loopback-discover-schemas --prompt
+./node_modules/.bin/loopback-discover-models --prompt
 ```
 
 <h5>Generate Model for a specific table/collectiom (modelName should be the table/collection name).</h5>
 ```
-./node_modules/.bin/loopback-discover-schemas --modelName some_table
+./node_modules/.bin/loopback-discover-models --modelName some_table
 ```
 
 <h5>Generate Model for a specific table/collectiom (modelName should be the table/collection name).</h5>
 ```
-./node_modules/.bin/loopback-discover-schemas --modelName some_table
+./node_modules/.bin/loopback-discover-models --modelName some_table
 ```
