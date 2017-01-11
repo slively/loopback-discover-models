@@ -93,10 +93,15 @@ function main(options) {
             var callCnt = models.length;
 
             models.forEach(function (def) {
-                dataSource.discoverSchema(def.name, { owner: discoveryOptions.owner }, function (err, schema) {
+                dataSource.discoverSchema(def.name, { owner: discoveryOptions.owner, associations: discoveryOptions.relations }, function (err, schema) {
                     if (err) {
                         cli.fatal(err);
                     }
+
+                    // Move relations to top-level properties
+                    var schemaRelations = schema.options.relations;
+                    delete schema.options.relations;
+                    schema.relations = schemaRelations;
 
                     // doesn't already exist and not skipping
                     if (currentModels.indexOf(schema.name.toLowerCase()) === -1) {
@@ -118,10 +123,15 @@ function main(options) {
             });
         });
     } else if (options.modelName) {
-        dataSource.discoverSchema(options.modelName, { owner: discoveryOptions.owner }, function (err, schema) {
+        dataSource.discoverSchema(options.modelName, { owner: discoveryOptions.owner, associations: discoveryOptions.relations }, function (err, schema) {
             if (err) {
                 cli.fatal(err);
             }
+
+            // Move relations to top-level properties
+            var schemaRelations = schema.options.relations;
+            delete schema.options.relations;
+            schema.relations = schemaRelations;
 
             cli.info('Writing new model files for ' + schema.name);
             writeFilesForModelSchema(schema);
