@@ -1,7 +1,7 @@
-<h3>I simple CLI tool to discover and write new model.json and model.js files by using loopback's datasource.discoverSchema API</h3>
-
+<h3>A simple CLI tool to discover and write new model.json and model.js files by using loopback's datasource.discoverSchema API</h3>
 
 <h3>Usage</h3>
+
 ```
 ./node_modules/.bin/loopback-discover-models -h                                                      
 Usage:
@@ -23,31 +23,37 @@ Options:
   ```
   
 <h5>Generate Models for all tables in the database that don't already exist as models.</h5>
+
 ```
 ./node_modules/.bin/loopback-discover-models --allNewModels
 ```
 
 <h5>generate new models, but skip the tables 'migrations' and 'some_other_table'</h5>
+
 ```
 ./node_modules/.bin/loopback-discover-models --allNewModels --skip migrations,some_other_table
 ```
 
 <h5>Generate new models and put them in a different folder</h5>
+
 ```
 ./node_modules/.bin/loopback-discover-models --allNewModels --modelDir /server/models
 ```
 
 <h5>Use prompts instead of cli flags (good for use with npm run).</h5>
+
 ```
 ./node_modules/.bin/loopback-discover-models --prompt
 ```
 
 <h5>Generate Model for a specific table/collectiom (modelName should be the table/collection name).</h5>
+
 ```
 ./node_modules/.bin/loopback-discover-models --modelName some_table
 ```
 
 <h5>Generate Model for a specific table/collectiom (modelName should be the table/collection name).</h5>
+
 ```
 ./node_modules/.bin/loopback-discover-models --modelName some_table
 ```
